@@ -104,8 +104,8 @@ public class Board {
         Set<Integer> visited = new HashSet<>();
 
         /*
-        Restore Ncovered which has -- before bfs, we do this for a preliminary check of status
-        if not Win, we need to reversed it back and get a bfs search
+        Restore NCovered which has -- before bfs, we do this for a preliminary check of status
+        if not Win, we need to restore it back and do a bfs
          */
         NCovered++;
         q.add(row * N + col);
@@ -161,7 +161,7 @@ public class Board {
                 gameState = GameState.WON;
                 uncoverAll(g, true); // uncover all in win mode
             } else
-                bfs(row, col, g);
+                bfs(row, col, g); // uncover, game will move on
         }
 //        g.dispose();
         // DO NOT DISPOSE here! let caller Game.onClick dispose it
@@ -193,28 +193,6 @@ public class Board {
             }
         }
 
-        // auto flag corner 1 case
-//        if (minesCount == 1 && flaggedCell == 0) {
-//            // make sure only one covered remain in neighbor
-//            Stack<Integer> cs = new Stack<>();
-//            for (int i = 0; i < di.length; i++) {
-//                int _r = row + di[i];
-//                int _c = col + dj[i];
-//                if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
-//                    if (getCellState(_r, _c) == CellState.COVERED) {
-//                        cs.add(_r * N + _c);
-//                    }
-//                }
-//            }
-//            if (cs.size() == 1) {
-//                // flag that
-//                int key = cs.pop();
-//                int r = key / N;
-//                int c = key % N;
-//                toggleFlag(r, c, g);
-//                return true;
-//            }
-//        }
 
         if (minesCount == flaggedCell) {
             // automatically click each covered cell

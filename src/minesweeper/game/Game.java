@@ -103,18 +103,18 @@ public class Game {
         int col = x / Assets.width;
         Graphics g = bs.getDrawGraphics();
 
-        if (board.inferOnUncovered(row, col, g)) {
-            bs.show();
-            isSuccToAutoExpand = true;
+        isSuccToAutoExpand = board.inferOnUncovered(row, col, g);
+
+        if (isSuccToAutoExpand) {
+            // game could end here, check and end the game if result is not ongoing
             GameState result = board.getGameState();
-            // game is possible to end here
             setTitleAndSetFinished(result);
         } else {
-            // receive false from the board,
-            isSuccToAutoExpand = false;
+            // begin blink
             board.changeTempToUNC0(row, col, g);
-            bs.show();
         }
+
+        bs.show();
 
         g.dispose();
         return isSuccToAutoExpand;
