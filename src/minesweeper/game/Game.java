@@ -22,23 +22,34 @@ public class Game {
     protected Board board;
     private MouseManager mouseManager;
     protected BufferStrategy bs; // subclass needs it for automation
+    private int NMines;
 
     public Game(String title, int N, int NMines) {
         this.N = N;
         width = Assets.width * N;
         height = width;
+        this.NMines = NMines;
         this.title = title;
 
         board = new Board(N, NMines);
         mouseManager = new MouseManager(this);
 
-        display = new Display(title, width, height);
+        display = new Display(title, width, height, this::reset); // reset reference past for set eventlisner
 //        display.getFrame().addMouseListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().createBufferStrategy(2);
         bs = display.getCanvas().getBufferStrategy();
 
         Assets.init();
+    }
+
+    public void reset() {
+        finished = false;
+        board = new Board(N, NMines);
+        display.getFrame().setTitle(title);
+
+//        System.out.println("reset");
+        start(); // repaint the canvas
     }
 
 

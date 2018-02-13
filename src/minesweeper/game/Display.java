@@ -2,6 +2,8 @@ package minesweeper.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class Display {
 
@@ -11,17 +13,37 @@ public class Display {
     private String title;
     private int width, height;
 
-    public Display(String title, int width, int height) {
+    public Display(String title, int width, int height, Runnable r) {
         this.title = title;
         this.width = width;
         this.height = height;
 
         createDisplay();
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu;
+        JMenuItem menuItem;
+
+        menu = new JMenu("Game");
+        menu.setMnemonic(KeyEvent.VK_A);
+        menuBar.add(menu);
+        menuItem = new JMenuItem("Restart", KeyEvent.VK_R);
+
+        menuItem.addActionListener((e) ->{r.run();});
+
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        menuItem.getAccessibleContext().setAccessibleDescription("This restarts the game");
+        menu.add(menuItem);
+        frame.setJMenuBar(menuBar);
+        frame.pack();
+        frame.setVisible(true);
     }
+
 
     private void createDisplay() {
         frame = new JFrame(title);
-        frame.setSize(width, height);
+        // do not set size explicitly, let pack do it
+//        frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -32,10 +54,8 @@ public class Display {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-
         frame.add(canvas);
-        frame.pack();
-        frame.setVisible(true);
+
     }
 
     public Canvas getCanvas() {

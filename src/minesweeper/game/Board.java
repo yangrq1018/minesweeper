@@ -194,27 +194,27 @@ public class Board {
         }
 
         // auto flag corner 1 case
-        if (minesCount == 1 && flaggedCell == 0) {
-            // make sure only one covered remain in neighbor
-            Stack<Integer> cs = new Stack<>();
-            for (int i = 0; i < di.length; i++) {
-                int _r = row + di[i];
-                int _c = col + dj[i];
-                if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
-                    if (getCellState(_r, _c) == CellState.COVERED) {
-                        cs.add(_r * N + _c);
-                    }
-                }
-            }
-            if (cs.size() == 1) {
-                // flag that
-                int key = cs.pop();
-                int r = key / N;
-                int c = key % N;
-                toggleFlag(r, c, g);
-                return true;
-            }
-        }
+//        if (minesCount == 1 && flaggedCell == 0) {
+//            // make sure only one covered remain in neighbor
+//            Stack<Integer> cs = new Stack<>();
+//            for (int i = 0; i < di.length; i++) {
+//                int _r = row + di[i];
+//                int _c = col + dj[i];
+//                if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
+//                    if (getCellState(_r, _c) == CellState.COVERED) {
+//                        cs.add(_r * N + _c);
+//                    }
+//                }
+//            }
+//            if (cs.size() == 1) {
+//                // flag that
+//                int key = cs.pop();
+//                int r = key / N;
+//                int c = key % N;
+//                toggleFlag(r, c, g);
+//                return true;
+//            }
+//        }
 
         if (minesCount == flaggedCell) {
             // automatically click each covered cell
