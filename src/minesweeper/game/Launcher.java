@@ -3,6 +3,8 @@ package minesweeper.game;
 public class Launcher {
 
     public static void main(String[] args) {
+        // mac menubar
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
         // default parameters
         int N = 20, NMines = 50;
 
