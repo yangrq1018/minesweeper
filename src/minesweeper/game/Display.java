@@ -27,11 +27,11 @@ public class Display {
         menu = new JMenu("Game");
         menu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(menu);
-        menuItem = new JMenuItem("Restart", KeyEvent.VK_R);
+        menuItem = new JMenuItem("Restart");
 
         menuItem.addActionListener((e) ->{r.run();});
 
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.META_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("This restarts the game");
         menu.add(menuItem);
         frame.setJMenuBar(menuBar);
