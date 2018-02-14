@@ -211,6 +211,8 @@ public class Board {
             // return false to inform the game to blink
             return false;
         }
+
+        // notice that if hit a mine in
     }
 
 

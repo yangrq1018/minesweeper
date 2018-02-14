@@ -141,7 +141,7 @@ public class GameRobot extends Game {
         bs.show();
         GameState result = board.getGameState();
         // when minesweeper.game ends
-        setTitleAndSetFinished(result);
+        SetFinishedFlag(result);
 
 		/*
 		When a Java program runs, a large number of Graphics objects can be created within a short time frame.
