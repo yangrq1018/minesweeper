@@ -17,8 +17,8 @@ public class Assets {
 
     // the icons in the sprite sheet are 16 pixels wide
     public static final int width = 16;
-    public static final int numberWidth = 11;
-    public static final int numberHeight = 21;
+    public static final int numberWidth = 12;
+    public static final int numberHeight = 23;
 
     public static BufferedImage[] uncovered = new BufferedImage[9];
     public static BufferedImage covered;
@@ -42,13 +42,15 @@ public class Assets {
         bombMine = predatorSheet.crop(1, 5, width);
 
         for (int i=0; i < 10; i++) {
-            if (i==0){
-                number[i] = cloneSheet.crop(0, width*2+1, numberWidth, numberHeight);
-            }else {
-                number[i] = cloneSheet.crop(i*numberWidth+i, width*2+1, numberWidth, numberHeight);
-            }
+            number[i] = cloneSheet.crop(i * numberWidth, width * 2, numberWidth, numberHeight);
         }
-        hyphen = cloneSheet.crop(10*numberWidth+10, width*2+1, numberWidth, numberHeight);
+        hyphen = cloneSheet.crop(10 * numberWidth, width * 2, numberWidth, numberHeight);
+        try {
+            ImageIO.write(hyphen, "bmp", new File("/Users/RockyYANG/Documents/workspace/mine" +
+                    "sweeper/hyphen.bmp"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void saveNumberImage(BufferedImage img, String fn) {
@@ -125,4 +127,69 @@ public class Assets {
         }
         return null;
     }
+
+    public static void drawMinesCnt(int left, Graphics g) {
+        BufferedImage[] imgs = intToBfimgArray(left);
+        for (int i = 0; i < 3; i++) {
+            g.drawImage(imgs[i], i * numberWidth, 0, null);
+        }
+    }
+
+    public static void drawTime(int elapse, Graphics g, int N) {
+        BufferedImage[] imgs = intToBfimgArray(elapse);
+        for (int i = 0; i < 3; i++) {
+            g.drawImage(imgs[i], N * width + i * numberWidth - 3 * numberWidth, 0, null);
+        }
+    }
+
+    /**
+     * 12 -> "012"
+     * Three digist
+     *
+     * @param digits
+     * @return
+     */
+    private static BufferedImage[] intToBfimgArray(int digits) {
+        char[] text = String.format("%03d", digits).toCharArray();
+        BufferedImage[] bfimg = new BufferedImage[3];
+        BufferedImage img = number[0];
+        for (int i = 0; i < 3; i++) {
+            char e = text[i];
+            switch (e) {
+                case '0':
+                    img = number[0];
+                    break;
+                case '1':
+                    img = number[1];
+                    break;
+                case '2':
+                    img = number[2];
+                    break;
+                case '3':
+                    img = number[3];
+                    break;
+                case '4':
+                    img = number[4];
+                    break;
+                case '5':
+                    img = number[5];
+                    break;
+                case '6':
+                    img = number[6];
+                    break;
+                case '7':
+                    img = number[7];
+                    break;
+                case '8':
+                    img = number[8];
+                    break;
+                case '9':
+                    img = number[9];
+                    break;
+            }
+            bfimg[i] = img;
+        }
+        return bfimg;
+    }
+
 }

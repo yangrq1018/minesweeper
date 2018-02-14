@@ -1,5 +1,7 @@
 package minesweeper.game;
 
+import minesweeper.gfx.Assets;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +11,7 @@ public class Display {
 
     private JFrame frame;
     private Canvas canvas;
-    private Canvas screenCanvas;
+    private Canvas scoreboard;
 
     private String title;
     private int width, height;
@@ -48,7 +50,7 @@ public class Display {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-//        frame.
+        frame.setLayout(new BorderLayout());
 
 
         canvas = new Canvas();
@@ -56,18 +58,25 @@ public class Display {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        frame.add(canvas);
+        frame.add(canvas, BorderLayout.SOUTH);
 
 
-//        screenCanvas = new Canvas();
-//        canvas.setSize(new Dimension(50, 50));
+        scoreboard = new Canvas();
+//        canvas.setPreferredSize(new Dimension(50, 50));
+//        canvas.setMaximumSize(new Dimension(50, 50));
+//        canvas.setMinimumSize(new Dimension(50, 50));
+        scoreboard.setSize(new Dimension(width, Assets.numberHeight));
 //        canvas.setFocusable(false);
-//        frame.add(screenCanvas);
+        frame.add(scoreboard, BorderLayout.NORTH);
 
     }
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public Canvas getScoreboard() {
+        return scoreboard;
     }
 
     public JFrame getFrame() {

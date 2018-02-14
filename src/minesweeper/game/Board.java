@@ -259,14 +259,20 @@ public class Board {
     }
 
     // when user right-clicks on a cell, we set/remove the flag
-    public void toggleFlag(int row, int col, Graphics g) {
-        if (states[row][col] == CellState.COVERED)
+    public int toggleFlag(int row, int col, Graphics g) {
+        int delta = 0;
+        if (states[row][col] == CellState.COVERED) {
+            // flag one cell
             states[row][col] = CellState.FLAGGED;
-        else if (states[row][col] == CellState.FLAGGED)
+            delta = -1;
+        } else if (states[row][col] == CellState.FLAGGED) {
             states[row][col] = CellState.COVERED;
+            delta = 1;
+        }
 
         Assets.draw(row, col, states[row][col], g);
         g.dispose();
+        return delta;
     }
 
     public GameState getGameState() {

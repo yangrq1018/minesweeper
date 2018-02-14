@@ -4,8 +4,12 @@ import minesweeper.game.states.CellState;
 import minesweeper.game.states.GameState;
 import minesweeper.gfx.Assets;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 /*
@@ -15,20 +19,24 @@ import java.awt.image.BufferStrategy;
 public class Game {
 
     public String title;
+    protected int N;
+    protected Board board;
+    protected BufferStrategy bs; // subclass needs it for automation
     private Display display;
     private int width, height;
-    protected int N;
     private boolean finished;
-    protected Board board;
     private MouseManager mouseManager;
-    protected BufferStrategy bs; // subclass needs it for automation
+    private BufferStrategy sbbs;
     private int NMines;
+    private long gameStartTime;
+    private int NMinesLeftNoFound;
 
     public Game(String title, int N, int NMines) {
         this.N = N;
         width = Assets.width * N;
         height = width;
         this.NMines = NMines;
+        NMinesLeftNoFound = NMines;
         this.title = title;
 
         board = new Board(N, NMines);
@@ -39,6 +47,8 @@ public class Game {
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().createBufferStrategy(2);
         bs = display.getCanvas().getBufferStrategy();
+        display.getScoreboard().createBufferStrategy(2);
+        sbbs = display.getScoreboard().getBufferStrategy();
 
         Assets.init();
     }
@@ -67,19 +77,22 @@ public class Game {
         int row = y / Assets.width;
         int col = x / Assets.width;
         Graphics g = bs.getDrawGraphics();
+        Graphics gsb = sbbs.getDrawGraphics();
 
         if (isLeft)
             board.uncoverCell(row, col, g);
-        else
-            board.toggleFlag(row, col, g);
+        else {
+            int response = board.toggleFlag(row, col, g);
+            NMinesLeftNoFound += response;
+            Assets.drawMinesCnt(NMinesLeftNoFound, gsb);
+        }
 
-        bs.show();
+
 
         GameState result = board.getGameState();
 
         // when minesweeper.game ends
         setTitleAndSetFinished(result);
-
 
 		/*
 		When a Java program runs, a large number of Graphics objects can be created within a short time frame.
@@ -88,6 +101,9 @@ public class Game {
 		on a finalization process which may not run to completion for a long period of time.
 		 */
         g.dispose();
+        gsb.dispose();
+        bs.show();
+        sbbs.show();
     }
 
     /**
@@ -131,6 +147,7 @@ public class Game {
 
     // display the initial covered board when minesweeper.game starts
     public void start() {
+        gameStartTime = System.currentTimeMillis();
         Graphics g = bs.getDrawGraphics();
 
         for (int i = 0; i < N; i++) {
@@ -140,6 +157,25 @@ public class Game {
         }
         bs.show();
         g.dispose();
+
+        // set up time
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(() -> {
+            SwingUtilities.invokeLater(() -> {
+                Graphics2D g2 = (Graphics2D) sbbs.getDrawGraphics();
+                long now = System.currentTimeMillis();
+                int elapseInSeconds = Math.round((now - gameStartTime) / 1000);
+                Assets.drawTime(elapseInSeconds, g2, N);
+                g2.dispose();
+                sbbs.show();
+            });
+        }, 0, 1, TimeUnit.SECONDS);
+
+        // set up mine left counter
+        Graphics gCnt = sbbs.getDrawGraphics();
+        Assets.drawMinesCnt(NMinesLeftNoFound, gCnt);
+        gCnt.dispose();
+        sbbs.show();
     }
 
 
