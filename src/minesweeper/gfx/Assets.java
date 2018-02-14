@@ -5,6 +5,7 @@ import minesweeper.game.states.CellState;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /*
@@ -16,25 +17,47 @@ public class Assets {
 
     // the icons in the sprite sheet are 16 pixels wide
     public static final int width = 16;
+    public static final int numberWidth = 11;
+    public static final int numberHeight = 21;
 
-    public static BufferedImage[] uncovered;
+    public static BufferedImage[] uncovered = new BufferedImage[9];
     public static BufferedImage covered;
     public static BufferedImage mine, flag;
     public static BufferedImage bombMine, wrongFlag;
+    public static BufferedImage[] number = new BufferedImage[10];
+    public static BufferedImage hyphen;
 
     public static void init() {
-        SpriteSheet sheet = new SpriteSheet(loadImage("res/predatorskin.bmp"));
+        SpriteSheet predatorSheet = new SpriteSheet(loadImage("res/predatorskin.bmp"));
+        SpriteSheet cloneSheet = new SpriteSheet(loadImage("res/cloneskin.bmp"));
 
-        uncovered = new BufferedImage[9];
         for (int i = 0; i < uncovered.length; i++) {
-            uncovered[i] = sheet.crop(0, i, width);
+            uncovered[i] = predatorSheet.crop(0, i, width);
         }
 
-        covered = sheet.crop(1, 0, width);
-        mine = sheet.crop(1, 2, width);
-        flag = sheet.crop(1, 3, width);
-        wrongFlag = sheet.crop(1, 4, width);
-        bombMine = sheet.crop(1, 5, width);
+        covered = predatorSheet.crop(1, 0, width);
+        mine = predatorSheet.crop(1, 2, width);
+        flag = predatorSheet.crop(1, 3, width);
+        wrongFlag = predatorSheet.crop(1, 4, width);
+        bombMine = predatorSheet.crop(1, 5, width);
+
+        for (int i=0; i < 10; i++) {
+            if (i==0){
+                number[i] = cloneSheet.crop(0, width*2+1, numberWidth, numberHeight);
+            }else {
+                number[i] = cloneSheet.crop(i*numberWidth+i, width*2+1, numberWidth, numberHeight);
+            }
+        }
+        hyphen = cloneSheet.crop(10*numberWidth+10, width*2+1, numberWidth, numberHeight);
+    }
+
+    private static void saveNumberImage(BufferedImage img, String fn) {
+        try {
+            File outputFile = new File("/Users/RockyYANG/Documents/workspace/minesweeper/"+fn);
+            ImageIO.write(img, "bmp", outputFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

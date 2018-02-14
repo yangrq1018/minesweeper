@@ -25,6 +25,8 @@ public class MouseManager implements MouseListener {
             return;
         }
 
+
+
         boolean isLeft = (e.getButton() == MouseEvent.BUTTON1);
         if (onBlink) {
             game.restoreTempUNC0(logX, logY); // use logged X and logged Y where the mouse is pressed, no released

@@ -9,6 +9,7 @@ public class Display {
 
     private JFrame frame;
     private Canvas canvas;
+    private Canvas screenCanvas;
 
     private String title;
     private int width, height;
@@ -47,6 +48,7 @@ public class Display {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+//        frame.
 
 
         canvas = new Canvas();
@@ -55,6 +57,12 @@ public class Display {
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
         frame.add(canvas);
+
+
+//        screenCanvas = new Canvas();
+//        canvas.setSize(new Dimension(50, 50));
+//        canvas.setFocusable(false);
+//        frame.add(screenCanvas);
 
     }
 
