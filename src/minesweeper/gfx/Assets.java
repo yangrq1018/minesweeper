@@ -45,12 +45,6 @@ public class Assets {
             number[i] = cloneSheet.crop(i * numberWidth, width * 2, numberWidth, numberHeight);
         }
         hyphen = cloneSheet.crop(10 * numberWidth, width * 2, numberWidth, numberHeight);
-        try {
-            ImageIO.write(hyphen, "bmp", new File("/Users/RockyYANG/Documents/workspace/mine" +
-                    "sweeper/hyphen.bmp"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void saveNumberImage(BufferedImage img, String fn) {
