@@ -1,12 +1,10 @@
 package minesweeper.gfx;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class AssetsTest {
     public static void main(String[] args) throws IOException {
-//        java.net.URL url = Assets.class.getResource("res/predatorskin.bmp");
+//        java.net.URL url = Assets.class.getResource("minesweeper.res/predatorskin.bmp");
 //        //System.out.println(url);
 //        BufferedImage bfimg = ImageIO.read(url);
 //        ImageTool tool = new ImageTool();

@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6208295f-db54-4fd5-8a8c-732fdbeba5b8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/minesweeper.iml" afterPath="$PROJECT_DIR$/minesweeper.iml" />
+      <change beforePath="$PROJECT_DIR$/src/minesweeper/game/Launcher.java" afterPath="$PROJECT_DIR$/src/minesweeper/game/Launcher.java" />
       <change beforePath="$PROJECT_DIR$/src/minesweeper/gfx/Assets.java" afterPath="$PROJECT_DIR$/src/minesweeper/gfx/Assets.java" />
+      <change beforePath="$PROJECT_DIR$/src/minesweeper/gfx/AssetsTest.java" afterPath="$PROJECT_DIR$/src/minesweeper/gfx/AssetsTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/minesweeper/gfx/res/cloneskin.bmp" afterPath="$PROJECT_DIR$/res/static/cloneskin.bmp" />
+      <change beforePath="$PROJECT_DIR$/src/minesweeper/gfx/res/predatorskin.bmp" afterPath="$PROJECT_DIR$/res/static/predatorskin.bmp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,71 +20,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Game.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="124" column="24" lean-forward="false" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#7125#7126#0" expanded="true" />
-                <element signature="e#7156#7157#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Display.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Display.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-              <folding>
-                <element signature="e#2181#2182#0" expanded="true" />
-                <element signature="e#2210#2211#0" expanded="true" />
-                <element signature="e#2247#2248#0" expanded="true" />
-                <element signature="e#2280#2281#0" expanded="true" />
-                <element signature="e#2312#2313#0" expanded="true" />
-                <element signature="e#2340#2341#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Assets.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/Assets.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Board.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1145">
-              <caret line="214" column="39" lean-forward="false" selection-start-line="214" selection-start-column="39" selection-end-line="214" selection-end-column="39" />
-              <folding>
-                <element signature="e#1187#1235#0" expanded="false" />
-                <element signature="e#9465#9466#0" expanded="true" />
-                <element signature="e#9497#9498#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MouseManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/minesweeper/game/MouseManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-653">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="784">
+              <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#468#469#0" expanded="true" />
-                <element signature="e#500#501#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Launcher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Launcher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,7 +87,6 @@
         <option value="$PROJECT_DIR$/src/minesweeper/game/states/CellState.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/game/GameRobot.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/game/Solver.java" />
-        <option value="$PROJECT_DIR$/src/minesweeper/game/Launcher.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/gfx/SpriteSheet.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/gfx/AssetsTest.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/game/MouseManager.java" />
@@ -138,6 +95,10 @@
         <option value="$PROJECT_DIR$/src/minesweeper/game/Display.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/game/Board.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/game/Game.java" />
+        <option value="$PROJECT_DIR$/out/production/anotherLib/Mylib.java" />
+        <option value="$PROJECT_DIR$/src/anotherLib/Mylib.java" />
+        <option value="$PROJECT_DIR$/out/production/minesweeper/Manifest.txt" />
+        <option value="$PROJECT_DIR$/src/minesweeper/game/Launcher.java" />
         <option value="$PROJECT_DIR$/src/minesweeper/gfx/Assets.java" />
       </list>
     </option>
@@ -326,8 +287,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -335,23 +294,14 @@
               <item name="minesweeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="minesweeper" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="minesweeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="minesweeper" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="minesweeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="minesweeper" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="minesweeper" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -359,15 +309,23 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="SearchEverywhereHistoryKey" value="Asset&#9;FILE&#9;file:///Users/RockyYANG/Documents/workspace/minesweeper/src/minesweeper/gfx/Assets.java&#10;enter&#9;PSI&#9;JAVA://minesweeper.game.MouseManager#mouseEntered" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/out/production/minesweeper/minesweeper/gfx/res" />
       <recent name="$PROJECT_DIR$/src/minesweeper/gfx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/res/static" />
+      <recent name="$PROJECT_DIR$/res" />
+      <recent name="$PROJECT_DIR$/out/production/minesweeper/minesweeper/gfx" />
+      <recent name="$PROJECT_DIR$/out/production/minesweeper/minesweeper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -548,6 +506,7 @@
       <workItem from="1518533200954" duration="309000" />
       <workItem from="1518583983609" duration="2578000" />
       <workItem from="1518636315501" duration="10413000" />
+      <workItem from="1518707103826" duration="6213000" />
     </task>
     <task id="LOCAL-00001" summary="Add menu to restart the game">
       <created>1518483084294</created>
@@ -595,7 +554,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53358000" />
+    <option name="totallyTimeSpent" value="60093000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -608,6 +567,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="734" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.49676898" order="6" side_tool="false" content_ui="tabs" />
@@ -617,25 +577,25 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20454545" sideWeight="0.51615506" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20454545" sideWeight="0.4838449" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20454545" sideWeight="0.4838449" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1736672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17609046" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20436187" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -690,66 +650,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Display.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="32" column="41" lean-forward="true" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
-          <folding>
-            <element signature="e#2181#2182#0" expanded="true" />
-            <element signature="e#2210#2211#0" expanded="true" />
-            <element signature="e#2247#2248#0" expanded="true" />
-            <element signature="e#2280#2281#0" expanded="true" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2340#2341#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/GameRobot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2064">
-          <caret line="129" column="14" lean-forward="true" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Solver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/res/cloneskin.bmp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="41" column="23" lean-forward="false" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#821#822#0" expanded="false" />
-            <element signature="e#852#853#0" expanded="false" />
             <element signature="e#1187#1235#0" expanded="false" />
-            <element signature="e#8600#8601#0" expanded="false" />
-            <element signature="e#8648#8649#0" expanded="false" />
-            <element signature="e#8840#8841#0" expanded="false" />
-            <element signature="e#8879#8880#0" expanded="false" />
-            <element signature="e#9465#9466#0" expanded="true" />
-            <element signature="e#9497#9498#0" expanded="true" />
+            <element signature="e#9465#9466#0" expanded="false" />
+            <element signature="e#9497#9498#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -765,7 +673,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1312">
           <caret line="87" column="54" lean-forward="false" selection-start-line="87" selection-start-column="54" selection-end-line="87" selection-end-column="54" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -774,9 +684,9 @@
         <state relative-caret-position="688">
           <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7125#7126#0" expanded="true" />
-            <element signature="e#7156#7157#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#7125#7126#0" expanded="false" />
+            <element signature="e#7156#7157#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -785,7 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -793,11 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -806,15 +710,9 @@
         <state relative-caret-position="2240">
           <caret line="140" column="24" lean-forward="false" selection-start-line="140" selection-start-column="24" selection-end-line="140" selection-end-column="24" />
           <folding>
-            <element signature="e#821#822#0" expanded="false" />
-            <element signature="e#852#853#0" expanded="false" />
             <element signature="e#1187#1235#0" expanded="false" />
-            <element signature="e#8600#8601#0" expanded="false" />
-            <element signature="e#8648#8649#0" expanded="false" />
-            <element signature="e#8840#8841#0" expanded="false" />
-            <element signature="e#8879#8880#0" expanded="false" />
-            <element signature="e#9465#9466#0" expanded="true" />
-            <element signature="e#9497#9498#0" expanded="true" />
+            <element signature="e#9465#9466#0" expanded="false" />
+            <element signature="e#9497#9498#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -823,7 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -832,9 +729,9 @@
         <state relative-caret-position="864">
           <caret line="54" column="25" lean-forward="false" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7125#7126#0" expanded="true" />
-            <element signature="e#7156#7157#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#7125#7126#0" expanded="false" />
+            <element signature="e#7156#7157#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -843,11 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -856,12 +748,12 @@
         <state relative-caret-position="160">
           <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding>
-            <element signature="e#2181#2182#0" expanded="true" />
-            <element signature="e#2210#2211#0" expanded="true" />
-            <element signature="e#2247#2248#0" expanded="true" />
-            <element signature="e#2280#2281#0" expanded="true" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2340#2341#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="false" />
+            <element signature="e#2210#2211#0" expanded="false" />
+            <element signature="e#2247#2248#0" expanded="false" />
+            <element signature="e#2280#2281#0" expanded="false" />
+            <element signature="e#2312#2313#0" expanded="false" />
+            <element signature="e#2340#2341#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -870,7 +762,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
           <caret line="91" column="36" lean-forward="false" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -914,10 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-428">
           <caret line="63" column="53" lean-forward="false" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
-          <folding>
-            <element signature="e#3142#3143#0" expanded="false" />
-            <element signature="e#3186#3187#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -971,7 +861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
           <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -986,49 +875,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Launcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/number0.bmp" />
     <entry file="file://$PROJECT_DIR$/zero.bmp" />
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/ScorePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="10" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/res/predatorskin.bmp">
+    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/ScorePanel.java" />
+    <entry file="file://$PROJECT_DIR$/res/static/predatorskin.bmp">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hyphen.bmp">
+    <entry file="file://$PROJECT_DIR$/hyphen.bmp" />
+    <entry file="file://$PROJECT_DIR$/res/static/cloneskin.bmp">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/res/cloneskin.bmp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/AssetsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/SpriteSheet.java">
@@ -1036,8 +897,8 @@
         <state relative-caret-position="288">
           <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
-            <element signature="e#455#456#0" expanded="true" />
-            <element signature="e#517#518#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="false" />
+            <element signature="e#517#518#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1046,7 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1054,7 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
           <caret line="155" column="9" lean-forward="false" selection-start-line="155" selection-start-column="9" selection-end-line="155" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1070,11 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-653">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1084,8 +938,8 @@
           <caret line="214" column="39" lean-forward="false" selection-start-line="214" selection-start-column="39" selection-end-line="214" selection-end-column="39" />
           <folding>
             <element signature="e#1187#1235#0" expanded="false" />
-            <element signature="e#9465#9466#0" expanded="true" />
-            <element signature="e#9497#9498#0" expanded="true" />
+            <element signature="e#9465#9466#0" expanded="false" />
+            <element signature="e#9497#9498#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1095,12 +949,12 @@
         <state relative-caret-position="22">
           <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
           <folding>
-            <element signature="e#2181#2182#0" expanded="true" />
-            <element signature="e#2210#2211#0" expanded="true" />
-            <element signature="e#2247#2248#0" expanded="true" />
-            <element signature="e#2280#2281#0" expanded="true" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2340#2341#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="false" />
+            <element signature="e#2210#2211#0" expanded="false" />
+            <element signature="e#2247#2248#0" expanded="false" />
+            <element signature="e#2280#2281#0" expanded="false" />
+            <element signature="e#2312#2313#0" expanded="false" />
+            <element signature="e#2340#2341#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1110,27 +964,156 @@
         <state relative-caret-position="-143">
           <caret line="124" column="24" lean-forward="false" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7125#7126#0" expanded="true" />
-            <element signature="e#7156#7157#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#7125#7126#0" expanded="false" />
+            <element signature="e#7156#7157#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/javax/imageio/ImageIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="1387" column="0" lean-forward="false" selection-start-line="1387" selection-start-column="0" selection-end-line="1387" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/minesweeper.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/anotherLib/Mylib.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="19" lean-forward="true" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/minesweeper/Manifest.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/minesweeper/game/Launcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/AssetsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/minesweeper/gfx/Assets.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="784">
+          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>minesweeper</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>1.8 (1)</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
           <splitter-proportions>
             <option name="proportions">
               <list>

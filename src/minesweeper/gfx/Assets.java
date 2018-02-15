@@ -5,8 +5,8 @@ import minesweeper.game.states.CellState;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /*
  * Class Assets:
@@ -28,8 +28,8 @@ public class Assets {
     public static BufferedImage hyphen;
 
     public static void init() {
-        SpriteSheet predatorSheet = new SpriteSheet(loadImage("res/predatorskin.bmp"));
-        SpriteSheet cloneSheet = new SpriteSheet(loadImage("res/cloneskin.bmp"));
+        SpriteSheet predatorSheet = new SpriteSheet(loadImage("static/predatorskin.bmp"));
+        SpriteSheet cloneSheet = new SpriteSheet(loadImage("static/cloneskin.bmp"));
 
         for (int i = 0; i < uncovered.length; i++) {
             uncovered[i] = predatorSheet.crop(0, i, width);
@@ -46,17 +46,7 @@ public class Assets {
         }
         hyphen = cloneSheet.crop(10 * numberWidth, width * 2, numberWidth, numberHeight);
     }
-
-    private static void saveNumberImage(BufferedImage img, String fn) {
-        try {
-            File outputFile = new File("/Users/RockyYANG/Documents/workspace/minesweeper/"+fn);
-            ImageIO.write(img, "bmp", outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    
 
     public static void draw(int row, int col, CellState state, Graphics g) {
         BufferedImage img = covered;
@@ -112,9 +102,12 @@ public class Assets {
         g.drawImage(img, width * col, width * row, null);
     }
 
-    public static BufferedImage loadImage(String path) {
+    public static BufferedImage loadImage(String name) {
         try {
-            return ImageIO.read(Assets.class.getResource(path));
+            ClassLoader classloader = Assets.class.getClassLoader();
+            URL url = classloader.getResource(name);
+            System.out.println(url.getPath());
+            return ImageIO.read(url);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
