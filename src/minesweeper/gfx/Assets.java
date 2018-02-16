@@ -28,8 +28,11 @@ public class Assets {
     public static BufferedImage hyphen;
 
     public static void init() {
+        System.out.println("Loading static files:");
         SpriteSheet predatorSheet = new SpriteSheet(loadImage("static/predatorskin.bmp"));
+        System.out.print("predatorskind ok");
         SpriteSheet cloneSheet = new SpriteSheet(loadImage("static/cloneskin.bmp"));
+        System.out.println("cloneskin ok");
 
         for (int i = 0; i < uncovered.length; i++) {
             uncovered[i] = predatorSheet.crop(0, i, width);
@@ -46,7 +49,7 @@ public class Assets {
         }
         hyphen = cloneSheet.crop(10 * numberWidth, width * 2, numberWidth, numberHeight);
     }
-    
+
 
     public static void draw(int row, int col, CellState state, Graphics g) {
         BufferedImage img = covered;
@@ -106,7 +109,6 @@ public class Assets {
         try {
             ClassLoader classloader = Assets.class.getClassLoader();
             URL url = classloader.getResource(name);
-            System.out.println(url.getPath());
             return ImageIO.read(url);
         } catch (IOException e) {
             e.printStackTrace();

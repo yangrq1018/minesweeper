@@ -71,7 +71,7 @@ public class Game {
     }
 
     // called when mouse clicks happen (mouse release)
-    public void onClick(boolean isLeft, int x, int y) {
+    public void onNormalClick(boolean isLeft, int x, int y) {
         if (finished)
             return;
 
@@ -223,7 +223,8 @@ public class Game {
     protected void SetFinishedFlag(GameState result) {
         if (result != GameState.ONGOING) {
             finished = true; // set finished flag, block further onClick event
-            System.out.println("Game ended!");
+            String winOrLose = (result == GameState.WON) ? "win" : "lose";
+            System.out.println("Game ends, you " + winOrLose);
         }
     }
 

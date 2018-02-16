@@ -1,9 +1,9 @@
 package minesweeper.gfx;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 public class AssetsTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 //        java.net.URL url = Assets.class.getResource("minesweeper.res/predatorskin.bmp");
 //        //System.out.println(url);
 //        BufferedImage bfimg = ImageIO.read(url);
