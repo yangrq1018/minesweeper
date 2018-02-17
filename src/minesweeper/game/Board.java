@@ -8,41 +8,75 @@ import java.awt.*;
 import java.util.*;
 import java.util.Queue;
 
-/*
- * Class Board:
- * 		manages the underlying data
- * 		and update the data when user clicks the mouse
- * */
-
+/**
+ * managing the underlying data and work with {@link Graphics} to draw on canvas, in order to update the
+ * look of the board.
+ */
 public class Board {
-    // used in putMines() and bfs()
+    /**
+     * Static helper to quickly iterator over adjacent eight cells.
+     */
     private final int[] di = new int[]{-1, -1, -1, 0, 1, 1, 1, 0};
+    /**
+     * Static helper to quickly iterator over adjacent eight cells.
+     */
     private final int[] dj = new int[]{-1, 0, 1, 1, 1, 0, -1, -1};
+
+    /**
+     * Static helper to quickly iterator over adjacent nine cells, including (0, 0) itself.
+     */
+    private final int[] di0 = new int[]{-1, -1, -1, 0, 1, 1, 1, 0, 0};
+    /**
+     * Static helper to quickly iterator over adjacent nine cells, including (0, 0) itself.
+     */
+    private final int[] dj0 = new int[]{-1, 0, 1, 1, 1, 0, -1, -1, 0};
+
+    /**
+     * An array of uncovered CellStates for quickly getting the desired state.
+     */
     private final CellState[] uncoveredStates = new CellState[]{
             CellState.UNC0, CellState.UNC1, CellState.UNC2, CellState.UNC3,
             CellState.UNC4, CellState.UNC5, CellState.UNC6, CellState.UNC7, CellState.UNC8
     };
-    private int N;
-    private int NMines;
 
-    public int getNCovered() {
-        return NCovered;
-    }
-
+    /**
+     * The number of mines still covered.
+     */
     private int NCovered;
+    /**
+     * Current state of the game.
+     */
     private GameState gameState;
-    // save data in separate arrays, instead of an array of objects
-    // this increases CPU-Register cache hit so can run faster
+    /**
+     * 2D array monitoring if a cell is a mine. Must be private to keep it invisible.
+     * Save data in separate arrays, instead of an array of objects.
+     * This increases CPU-Register cache hit so can run faster
+     */
     private boolean[][] isMine;
+    /**
+     * The number of mines of the adjacent cells.
+     */
     private int[][] mineCnt;
+    /**
+     * 2D array monitoring the current public state of each cell.
+     */
     private CellState[][] states;
+
+    /**
+     * The dimension of the board.
+     */
+    private int N;
+    /**
+     * The count of total number of mines in the board.
+     */
+    private int NMines;
 
     public Board(int N, int NMines) {
         // parameters should have be checked before here
         // if, somehow, they are still invalid, overwrite them with defaults
         if (N < 10 || N > 1000 || NMines < 1 || NMines > N * N) {
-            N = 30;
-            NMines = 100;
+            N = 20;
+            NMines = 50;
         }
 
         this.N = N;
@@ -50,6 +84,7 @@ public class Board {
         this.NMines = NMines;
 
         isMine = new boolean[N][N];
+        // mineCnt should be one unit larger than the actual board
         mineCnt = new int[N + 2][N + 2];
         states = new CellState[N][N];
 
@@ -61,8 +96,18 @@ public class Board {
         gameState = GameState.ONGOING;
     }
 
-    // randomly place mines in the board
-    // and update "count of mines" of neighboring cells
+    /**
+     * Return the number of mines still covered.
+     *
+     * @return the number of mines still covered.
+     */
+    public int getNCovered() {
+        return NCovered;
+    }
+
+    /**
+     * Randomly place mines on the board, and initiating mineCnt.
+     */
     private void putMines() {
         Random rand = new Random();
         int mines = NMines;
@@ -70,10 +115,11 @@ public class Board {
             int pos = rand.nextInt(NCovered);
             int x = pos % N;
             int y = pos / N;
-            if (isMine[y][x])
+            if (isMine[y][x]) // already a mine here
                 mines++;
             else {
-                isMine[y][x] = true;
+                isMine[y][x] = true; // place a mine here
+                // update neighbor cnt
                 for (int d = 0; d < di.length; d++) {
                     mineCnt[y + di[d] + 1][x + dj[d] + 1]++;
                 }
@@ -81,7 +127,16 @@ public class Board {
         }
     }
 
-    // when minesweeper.game stopped, display covered mines, etc.
+    /**
+     * When the game stopps, display covered mines. The method automatically flags all mines not flagged by user
+     * if he wins, displays mines as mines if he loses.
+     * <p>
+     * For the cells misflagged, not a mine, it is displayed as a cross-mine image (WRONG_FLAG).
+     *
+     * @param g   {@link Graphics} used to draw
+     * @param won win or loss
+     * @see Graphics
+     */
     private void uncoverAll(Graphics g, boolean won) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -96,9 +151,12 @@ public class Board {
         }
     }
 
-    // when click on an empty cell (has no mines around)
-    // expand the uncovered region automatically
-    // breadth first search
+    /**
+     * Breadth first search, auto expand to reach non-UNC0 frontier.
+     * @param row the row index of the cell
+     * @param col the column index of the cell
+     * @param g Graphics object to draw with
+     */
     private void bfs(int row, int col, Graphics g) {
         Queue<Integer> q = new ArrayDeque<>();
         Set<Integer> visited = new HashSet<>();
@@ -143,8 +201,19 @@ public class Board {
             gameState = GameState.WON;
     }
 
-    // when user left-clicks on a cell, uncover it
-    // the minesweeper.game can end after this
+    /**
+     * Parameter The first Step to uncover a cell. A primary check is performed first to see if unveiling this cell
+     * will end the game. If so, the game is stopped, else, a Bread-first search will be performed on the concerning
+     * cell and auto expand the region if needed.<p>
+     * Note that {@code Graphics g} is not manually disposed in this method, instead it should be disposed by the caller
+     * , the constructor of graphics. The game may end by this method.
+     *
+     * @param row row index of the cell
+     * @param col column index of the cell
+     * @param g Graphics object to draw with
+     * @return true if successfully uncover a mine, end the game, or uncover a region; false if hit a mine, lose the
+     * game or click on an invalid cell
+     */
     public boolean uncoverCell(int row, int col, Graphics g) {
         if (states[row][col] != CellState.COVERED) // click on non-covered tile, ignore
             return false;
@@ -163,21 +232,23 @@ public class Board {
             } else
                 bfs(row, col, g); // uncover, game will move on
         }
-//        g.dispose();
-        // DO NOT DISPOSE here! let caller Game.onClick dispose it
-        // OR when inferOnUncovered call this method multiple times the graphics won't be
-        // displayed
         return true;
     }
 
 
-    // inferred on an already uncovered cell to auto expand
-    // Graphics as argument
-    public boolean inferOnUncovered(int row, int col, Graphics g) {
+    /**
+     * Inferring on the cell on an LR click callback. The game may end by this method calling {@code uncover}
+     *
+     * @param row row index of the cell
+     * @param col column index of the cell
+     * @param g   Graphics obejct to draw with
+     * @return true if can infer and expand; false if click on invalid cells or lack conditions to auto uncover
+     */
+    public boolean inferOnCell(int row, int col, Graphics g) {
         // check (row, col) is uncovered and non zero
-        // we are sure at this stage the clicked cell is not covered or flagged
-        if (states[row][col] == CellState.UNC0) { // nothing to infers
-            return true;
+        CellState state = states[row][col];
+        if (state == CellState.UNC0 || state == CellState.COVERED) { // nothing to infers
+            return false;
         }
 
         int minesCount = getMineCnt(row, col);
@@ -211,15 +282,19 @@ public class Board {
             // return false to inform the game to blink
             return false;
         }
-
-        // notice that if hit a mine in
     }
 
-
+    /**
+     * Restore the appearance of temporarily marked as UNC0 cells.
+     * Use di0 and dj0, need to blink the center cell as well.
+     * @param row
+     * @param col
+     * @param g
+     */
     public void restoreTempUNC0(int row, int col, Graphics g) {
-        for (int i = 0; i < di.length; i++) {
-            int _r = row + di[i];
-            int _c = col + dj[i];
+        for (int i = 0; i < di0.length; i++) {
+            int _r = row + di0[i];
+            int _c = col + dj0[i];
             if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
                 if (getCellState(_r, _c) == CellState.TEMP_UNC0) {
                     // set TEMP_UNC0 back to COVERED
@@ -230,10 +305,16 @@ public class Board {
         }
     }
 
+    /**
+     * Temporarily change the appearance surrounding cells of (row, col) to UNC0;
+     * @param row the center cell row index
+     * @param col the center cell column index
+     * @param g Graphics object to draw with
+     */
     public void changeTempToUNC0(int row, int col, Graphics g) {
-        for (int i = 0; i < di.length; i++) {
-            int _r = row + di[i];
-            int _c = col + dj[i];
+        for (int i = 0; i < di0.length; i++) {
+            int _r = row + di0[i];
+            int _c = col + dj0[i];
             if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
                 if (getCellState(_r, _c) == CellState.COVERED) {
                     // will change back later, does not affect the game
@@ -244,23 +325,33 @@ public class Board {
         }
     }
 
-    // offset by 1
+    /**
+     * Offset (row, col) indices by 1 to find its mineCnt.
+     * @param row row index
+     * @param col column index
+     * @return mine counter of this cell
+     */
     protected int getMineCnt(int row, int col) {
         return mineCnt[row + 1][col + 1];
     }
 
     /**
-     * Cell state is public information, so modifier is public
-     *
-     * @param row
-     * @param col
-     * @return
+     * Get the cell state of (row, col)
+     * @param row row index
+     * @param col column index
+     * @return the cellState at (row, col)
      */
     public CellState getCellState(int row, int col) {
         return states[row][col];
     }
 
-    // when user right-clicks on a cell, we set/remove the flag
+    /**
+     * Flag or un-flag a cell.
+     * @param row row index
+     * @param col column index
+     * @param g Graphics object to draw with
+     * @return the change of mines remaining to be discovered. -1 if flag a cell; 1 if unflag a cell; 0 if not viable.
+     */
     public int toggleFlag(int row, int col, Graphics g) {
         int delta = 0;
         if (states[row][col] == CellState.COVERED) {
@@ -277,6 +368,10 @@ public class Board {
         return delta;
     }
 
+    /**
+     * Get current game state.
+     * @return
+     */
     public GameState getGameState() {
         return gameState;
     }

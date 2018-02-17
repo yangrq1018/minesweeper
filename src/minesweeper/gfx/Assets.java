@@ -8,17 +8,20 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-/*
- * Class Assets:
- * 		- Crop icons from the sprite sheet and cache as static buffered images
- * 		- Draw icons to the board
- * */
+/**
+ * Class Assets: <p>
+ * Crop icons from the sprite sheet and cache as static buffered images
+ * Static methods to draw icons with graphics
+ */
 public class Assets {
-
-    // the icons in the sprite sheet are 16 pixels wide
+    /**
+     * The mine icons are 16 pixels wide
+     */
     public static final int width = 16;
     public static final int numberWidth = 12;
     public static final int numberHeight = 23;
+    public static final int faceHeight = 32;
+    public static final int faceWidth = 32;
 
     public static BufferedImage[] uncovered = new BufferedImage[9];
     public static BufferedImage covered;
@@ -26,13 +29,16 @@ public class Assets {
     public static BufferedImage bombMine, wrongFlag;
     public static BufferedImage[] number = new BufferedImage[10];
     public static BufferedImage hyphen;
+    public static BufferedImage smile, onclick, win, lose;
 
     public static void init() {
         System.out.println("Loading static files:");
         SpriteSheet predatorSheet = new SpriteSheet(loadImage("static/predatorskin.bmp"));
-        System.out.print("predatorskind ok");
+        System.out.println("predatorskind ok");
+
         SpriteSheet cloneSheet = new SpriteSheet(loadImage("static/cloneskin.bmp"));
         System.out.println("cloneskin ok");
+
 
         for (int i = 0; i < uncovered.length; i++) {
             uncovered[i] = predatorSheet.crop(0, i, width);
@@ -48,6 +54,11 @@ public class Assets {
             number[i] = cloneSheet.crop(i * numberWidth, width * 2, numberWidth, numberHeight);
         }
         hyphen = cloneSheet.crop(10 * numberWidth, width * 2, numberWidth, numberHeight);
+
+        smile = loadImage("static/smile.png");
+        onclick = loadImage("static/onclick.png");
+        win = loadImage("static/win.png");
+        lose = loadImage("static/lose.png");
     }
 
 
@@ -117,6 +128,28 @@ public class Assets {
         return null;
     }
 
+    public static void drawFace(int x, int y, Graphics g, String mood) {
+        Image img;
+        switch (mood) {
+            case "smile":
+                img = smile;
+                break;
+            case "onclick":
+                img = onclick;
+                break;
+            case "lose":
+                img = lose;
+                break;
+            case "win":
+                img = win;
+                break;
+            default:
+                img = smile;
+                break;
+        }
+        g.drawImage(img, x, y, null);
+    }
+
     public static void drawMinesCnt(int left, Graphics g) {
         BufferedImage[] imgs = intToBfimgArray(left);
         for (int i = 0; i < 3; i++) {
@@ -133,10 +166,10 @@ public class Assets {
 
     /**
      * 12 -> "012"
-     * Three digist
+     * Three digits at most
      *
      * @param digits
-     * @return
+     * @return the array of {@link BufferedImage} of size three that represents the number
      */
     private static BufferedImage[] intToBfimgArray(int digits) {
         char[] text = String.format("%03d", digits).toCharArray();

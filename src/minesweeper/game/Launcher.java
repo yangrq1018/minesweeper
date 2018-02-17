@@ -7,7 +7,7 @@ public class Launcher {
         // mac menubar
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         // default parameters
-        int N = 20, NMines = 50;
+        int N = 20, NMines = 30;
 
         if (args.length > 0) {
             try {

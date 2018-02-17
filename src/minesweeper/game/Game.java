@@ -12,12 +12,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
-/*
- * Class Game:
- * 		manages all resources of the minesweeper.game (mouse, board, graphics)
- * */
-public class Game {
+/**
+ * manages all resources of the minesweeper.game (mouse, board, graphics)
+ */
 
+public class Game {
     public String title;
     protected int N;
     protected Board board;
@@ -32,6 +31,8 @@ public class Game {
     private long gameStartTime;
     private int NMinesLeftNoFound;
     private int timeElapsed;
+    private int faceDrawingOriginX;
+
 
     public Game(String title, int N, int NMines) {
         this.N = N;
@@ -40,6 +41,7 @@ public class Game {
         this.NMines = NMines;
         NMinesLeftNoFound = NMines;
         this.title = title;
+        this.faceDrawingOriginX = N * Assets.width / 2 - Assets.faceWidth / 2;
 
         board = new Board(N, NMines);
         mouseManager = new MouseManager(this);
@@ -59,7 +61,6 @@ public class Game {
         // get a new board
         board = new Board(N, NMines);
         display.getFrame().setTitle(title);
-
         start(); // repaint the canvas
     }
 
@@ -70,7 +71,19 @@ public class Game {
         return board.getCellState(row, col) == CellState.COVERED || board.getCellState(row, col) == CellState.FLAGGED;
     }
 
-    // called when mouse clicks happen (mouse release)
+
+    /**
+     * Callback when mouse click happens in a normal uncover.
+     * <p>
+     * When a Java program runs, a large number of Graphics objects can be created within a short time frame.
+     * Although the finalization process of the garbage collector also disposes of the same system resources,
+     * it is preferable to manually free the associated resources by calling this method rather than to rely
+     * on a finalization process which may not run to completion for a long period of time.
+     *
+     * @param isLeft Click is the left button of the mouse
+     * @param x      click point x (horizontal axis)
+     * @param y      click point y (vertical axis)
+     */
     public void onNormalClick(boolean isLeft, int x, int y) {
         if (finished)
             return;
@@ -88,12 +101,7 @@ public class Game {
             Assets.drawMinesCnt(NMinesLeftNoFound, gsb);
         }
 
-		/*
-		When a Java program runs, a large number of Graphics objects can be created within a short time frame.
-		Although the finalization process of the garbage collector also disposes of the same system resources,
-		it is preferable to manually free the associated resources by calling this method rather than to rely
-		on a finalization process which may not run to completion for a long period of time.
-		 */
+
         g.dispose();
         gsb.dispose();
         bs.show();
@@ -102,12 +110,20 @@ public class Game {
         checkGameStateAndEndIfPossible();
     }
 
+    /**
+     * If the game is possible to end, call this to finalize.
+     */
     private void checkGameStateAndEndIfPossible() {
-        // the game could have end here
         GameState result = board.getGameState();
-        //  when minesweeper.game ends
-        SetFinishedFlag(result);
-        killScheduleTimer(result);
+        if (result != GameState.ONGOING) {
+            //  when minesweeper.game ends
+            SetFinishedFlag(result);
+            killScheduleTimer(result);
+            // change face
+            String face = (result == GameState.WON) ? "win" : "lose";
+            drawFace(face);
+        }
+
         int choice = promptUserWhenGameEnds(result);
         if (choice == 1) {
             System.exit(0);
@@ -116,6 +132,12 @@ public class Game {
         }
     }
 
+    /**
+     * Ask the user whether to play the game again.
+     *
+     * @param result Win or Lose?
+     * @return the option user chooses
+     */
     private int promptUserWhenGameEnds(GameState result) {
         if (result != GameState.ONGOING) {
             String title = (result == GameState.WON) ? "You Won :D" : "You Lose :-(";
@@ -131,11 +153,13 @@ public class Game {
     }
 
     /**
-     * @param x
-     * @param y
+     * Callback method when an LR click is incurred.
+     *
+     * @param x horizontal coordinate
+     * @param y vertical coordinate
      */
     public boolean onSimulPressed(int x, int y) {
-        boolean isSuccToAutoExpand;
+        boolean canAutoExpand;
         if (finished)
             return true;
 
@@ -143,10 +167,10 @@ public class Game {
         int col = x / Assets.width;
         Graphics g = bs.getDrawGraphics();
 
-        isSuccToAutoExpand = board.inferOnUncovered(row, col, g);
+        canAutoExpand = board.inferOnCell(row, col, g);
 
-        if (isSuccToAutoExpand) {
-            // game could end here, check and end the game if result is not ongoing
+        if (canAutoExpand) {
+            // game could have ended here, check and end the game if result is not ongoing
             GameState result = board.getGameState();
         } else {
             // begin blink
@@ -160,10 +184,15 @@ public class Game {
          * so user can see the final board upon lose*/
         checkGameStateAndEndIfPossible();
 
-        return isSuccToAutoExpand;
+        return canAutoExpand;
     }
 
 
+    /**
+     * Distribute restoreTempUNC0 task to the underlying board.
+     * @param x horizontal (to col)
+     * @param y vertical (to row)
+     */
     public void restoreTempUNC0(int x, int y) {
         int row = y / Assets.width;
         int col = x / Assets.width;
@@ -173,7 +202,9 @@ public class Game {
         g.dispose();
     }
 
-    // display the initial covered board when minesweeper.game starts
+    /**
+     * Prepare the game. Paint the board by the first time. Set up time, counter, face.
+     */
     public void start() {
         gameStartTime = System.currentTimeMillis();
         NMinesLeftNoFound = NMines;
@@ -188,16 +219,22 @@ public class Game {
         g.dispose();
 
 
-        // set up mine left counter
-        Graphics gCnt = sbbs.getDrawGraphics();
-        Assets.drawMinesCnt(NMinesLeftNoFound, gCnt);
-        gCnt.dispose();
+        Graphics gUp = sbbs.getDrawGraphics();
+        // set up mines left counter
+        Assets.drawMinesCnt(NMinesLeftNoFound, gUp);
+        // draw smile face
+        Assets.drawFace(faceDrawingOriginX, 0, gUp, "smile");
+        gUp.dispose();
         sbbs.show();
 
         // set up Timer
         setupScheduleTimer();
+
     }
 
+    /**
+     * Set up timer. The timer will run in a scheduled single thread executor.
+     */
     private void setupScheduleTimer() {
         // set up time
         service = Executors.newSingleThreadScheduledExecutor();
@@ -213,13 +250,29 @@ public class Game {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
+
+    public void drawFace(String face) {
+        Graphics g = sbbs.getDrawGraphics();
+        Assets.drawFace(faceDrawingOriginX, 0, g, face);
+        g.dispose();
+        sbbs.show();
+    }
+
+    /**
+     * Stop the timer when game ends
+     * @param result state of the game
+     */
     private void killScheduleTimer(GameState result) {
         if (result != GameState.ONGOING) {
             service.shutdown();
         }
     }
 
-
+    /**
+     * Because the normal GUI game relies on EventListener call back to check and end the game,
+     * the method is designed protected for subclass robots can end the game by direct call
+     * @param result state of the game
+     */
     protected void SetFinishedFlag(GameState result) {
         if (result != GameState.ONGOING) {
             finished = true; // set finished flag, block further onClick event
@@ -228,6 +281,10 @@ public class Game {
         }
     }
 
+    /**
+     * Indicate the game is finished or not
+     * @return true if game is finished, false otherwise
+     */
     public boolean isFinished() {
         return finished;
     }

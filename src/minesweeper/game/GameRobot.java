@@ -143,12 +143,6 @@ public class GameRobot extends Game {
         // when minesweeper.game ends
         SetFinishedFlag(result);
 
-		/*
-		When a Java program runs, a large number of Graphics objects can be created within a short time frame.
-		Although the finalization process of the garbage collector also disposes of the same system resources,
-		it is preferable to manually free the associated resources by calling this method rather than to rely
-		on a finalization process which may not run to completion for a long period of time.
-		 */
         g.dispose();
         return response;
     }
@@ -161,11 +155,6 @@ public class GameRobot extends Game {
         Graphics g = bs.getDrawGraphics();
         board.toggleFlag(row, col, g);
         bs.show();
-//        GameState result = board.getGameState();
-//
-//        // when minesweeper.game ends
-//        setTitleAndBlockFurtherClickIfWin(result);
-
         g.dispose();
     }
 

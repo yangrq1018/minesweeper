@@ -10,8 +10,8 @@ public class MouseManager implements MouseListener {
     private int logX;
     private int logY;
     private boolean lastClickIsLeft;
-    private boolean blockUncoverOnRelease = false;
-    private boolean onBlink = false;
+    private boolean onBlinkFirstRelease = false;
+    private boolean onBlinkSecondRelease = false;
 
     public MouseManager(Game game) {
         this.game = game;
@@ -20,17 +20,17 @@ public class MouseManager implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (blockUncoverOnRelease) {
-            blockUncoverOnRelease = false;
-            return;
+        if (!game.isFinished()) {
+            game.drawFace("smile");
         }
 
 
-
         boolean isLeft = (e.getButton() == MouseEvent.BUTTON1);
-        if (onBlink) {
+        if (onBlinkFirstRelease) {
+            onBlinkFirstRelease = false;
+        } else if (onBlinkSecondRelease) {
             game.restoreTempUNC0(logX, logY); // use logged X and logged Y where the mouse is pressed, no released
-            onBlink = false; // turn off onBlink signal
+            onBlinkSecondRelease = false;
         } else {
             if (game != null)
                 game.onNormalClick(isLeft, e.getX(), e.getY());
@@ -39,24 +39,29 @@ public class MouseManager implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
     }
 
+    /**
+     * On an failed auto expand, a blink process be will executed. Double set the blink release flags so that the blink
+     * will end only after the user release the last button he holds.
+     *
+     * @param e mouse event
+     */
     @Override
     public void mousePressed(MouseEvent e) {
+        // change face
+        game.drawFace("onclick");
+
         boolean isLeft = (e.getButton() == MouseEvent.BUTTON1);
         if (Math.abs(System.currentTimeMillis() - lastClickTime) < SIMUL_THRESHOLD && (isLeft != lastClickIsLeft)
-                && !onBlink) {
-            if (game.isCoveredOrFlagged(e.getX(), e.getY())) {
-                // block uncover on release, since this is a simul click on covered/flagged
-                blockUncoverOnRelease = true;
-            } else {
-                // have detected a simultaneous left and right click
-                if (!game.onSimulPressed(e.getX(), e.getY())) {
-                    onBlink = true; // cannot auto click, blink to user
-                    // log X, Y for release use
-                    logX = e.getX();
-                    logY = e.getY();
-                }
+                && !onBlinkSecondRelease && !onBlinkFirstRelease) {
+            if (!game.onSimulPressed(e.getX(), e.getY())) { // callback game.onSimulPressed to handle the action
+                onBlinkFirstRelease = true;
+                onBlinkSecondRelease = true;
+                // log X, Y for release use
+                logX = e.getX();
+                logY = e.getY();
             }
         }
 

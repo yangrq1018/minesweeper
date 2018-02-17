@@ -1,7 +1,5 @@
 package minesweeper.game;
 
-import java.util.Random;
-
 public class Solver {
     private final int[] di = new int[]{-1, -1, -1, 0, 1, 1, 1, 0};
     private final int[] dj = new int[]{-1, 0, 1, 1, 1, 0, -1, -1};
