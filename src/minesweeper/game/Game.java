@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Game {
     public String title;
-    protected int N;
+    public int N;
     protected Board board;
     protected BufferStrategy bs; // subclass needs it for automation
     ScheduledExecutorService service;
@@ -31,7 +31,7 @@ public class Game {
     private long gameStartTime;
     private int NMinesLeftNoFound;
     private int timeElapsed;
-    private int faceDrawingOriginX;
+    public int faceDrawingOriginX;
 
 
     public Game(String title, int N, int NMines) {
@@ -43,17 +43,19 @@ public class Game {
         this.title = title;
         this.faceDrawingOriginX = N * Assets.width / 2 - Assets.faceWidth / 2;
 
+        // set up assets first
+        Assets.init();
+
         board = new Board(N, NMines);
         mouseManager = new MouseManager(this);
 
-        display = new Display(title, width, height, this::reset); // reset reference past for set eventlisner
+        display = new Display(title, width, height, this); // reset reference past for set eventlisner
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().createBufferStrategy(2);
         bs = display.getCanvas().getBufferStrategy();
         display.getScoreboard().createBufferStrategy(2);
         sbbs = display.getScoreboard().getBufferStrategy();
 
-        Assets.init();
     }
 
     public void reset() {
@@ -121,7 +123,7 @@ public class Game {
             killScheduleTimer(result);
             // change face
             String face = (result == GameState.WON) ? "win" : "lose";
-            drawFace(face);
+            setFace(face);
         }
 
         int choice = promptUserWhenGameEnds(result);
@@ -210,26 +212,26 @@ public class Game {
         NMinesLeftNoFound = NMines;
         Graphics g = bs.getDrawGraphics();
 
+        // do not draw canvas here, draw it when it is constructed.
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 Assets.draw(i, j, CellState.COVERED, g);
             }
         }
-        bs.show();
         g.dispose();
+        bs.show();
 
+        // set up button icon
+        setFace("smile");
 
+        // set up left counter
         Graphics gUp = sbbs.getDrawGraphics();
-        // set up mines left counter
         Assets.drawMinesCnt(NMinesLeftNoFound, gUp);
-        // draw smile face
-        Assets.drawFace(faceDrawingOriginX, 0, gUp, "smile");
         gUp.dispose();
         sbbs.show();
 
         // set up Timer
         setupScheduleTimer();
-
     }
 
     /**
@@ -251,11 +253,9 @@ public class Game {
     }
 
 
-    public void drawFace(String face) {
-        Graphics g = sbbs.getDrawGraphics();
-        Assets.drawFace(faceDrawingOriginX, 0, g, face);
-        g.dispose();
-        sbbs.show();
+
+    public void setFace(String face) {
+        display.setFace(face);
     }
 
     /**

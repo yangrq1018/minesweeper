@@ -21,7 +21,7 @@ public class MouseManager implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (!game.isFinished()) {
-            game.drawFace("smile");
+            game.setFace("smile");
         }
 
 
@@ -51,7 +51,8 @@ public class MouseManager implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         // change face
-        game.drawFace("onclick");
+//        game.drawFace("onclick");
+        game.setFace("onclick");
 
         boolean isLeft = (e.getButton() == MouseEvent.BUTTON1);
         if (Math.abs(System.currentTimeMillis() - lastClickTime) < SIMUL_THRESHOLD && (isLeft != lastClickIsLeft)

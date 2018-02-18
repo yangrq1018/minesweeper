@@ -1,6 +1,7 @@
 package minesweeper.game;
 
 import minesweeper.gfx.Assets;
+import minesweeper.gfx.FaceButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class Display {
     /**
      * The window.
      */
-    private JFrame frame;
+    public JFrame frame;
     /**
      * The board canvas.
      */
@@ -20,25 +21,61 @@ public class Display {
      * The score, face and timer canvas.
      */
     private Canvas scoreboard;
+    private Game game;
+    private FaceButton faceButton;
 
     private String title;
     private int width, height;
 
-    public Display(String title, int width, int height, Runnable r) {
+    public Display(String title, int width, int height, Game game) {
+        this.game = game;
         this.title = title;
         this.width = width;
         this.height = height;
 
         createDisplay();
-        createMenu(r);
-
+        createMenu(game::reset);
+        createButton();
 
         frame.pack();
         frame.setVisible(true);
     }
 
-    private void createButton() {
 
+    public void drawBoardCanvas() {
+
+    }
+
+    public void setVisible(boolean b) {
+        frame.setVisible(b);
+    }
+
+    public void setFace(String face) {
+        Image img;
+        switch (face) {
+            case "smile":
+                img = Assets.smile;
+                break;
+            case "onclick":
+                img = Assets.onclick;
+                break;
+            case "lose":
+                img = Assets.lose;
+                break;
+            case "win":
+                img = Assets.win;
+                break;
+            default:
+                img = Assets.smile;
+                break;
+        }
+
+        faceButton.setIcon(new ImageIcon(img));
+    }
+
+    private void createButton() {
+        faceButton = new FaceButton(game);
+        frame.add(faceButton);
     }
 
     /**
@@ -59,7 +96,6 @@ public class Display {
         menuItem.getAccessibleContext().setAccessibleDescription("This restarts the game");
         menu.add(menuItem);
         frame.setJMenuBar(menuBar);
-
     }
 
     /**
@@ -82,6 +118,7 @@ public class Display {
         scoreboard = new Canvas();
         scoreboard.setSize(new Dimension(width, Assets.faceHeight));
         frame.add(scoreboard, BorderLayout.NORTH);
+
     }
 
     public Canvas getCanvas() {

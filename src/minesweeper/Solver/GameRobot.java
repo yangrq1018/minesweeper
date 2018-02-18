@@ -1,5 +1,6 @@
-package minesweeper.game;
+package minesweeper.Solver;
 
+import minesweeper.game.Game;
 import minesweeper.game.states.CellState;
 import minesweeper.game.states.GameState;
 

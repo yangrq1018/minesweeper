@@ -1,4 +1,4 @@
-package minesweeper.game;
+package minesweeper.Solver;
 
 public class Solver {
     private final int[] di = new int[]{-1, -1, -1, 0, 1, 1, 1, 0};

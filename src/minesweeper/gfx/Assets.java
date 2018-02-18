@@ -116,6 +116,8 @@ public class Assets {
         g.drawImage(img, width * col, width * row, null);
     }
 
+
+
     public static BufferedImage loadImage(String name) {
         try {
             ClassLoader classloader = Assets.class.getClassLoader();
@@ -126,28 +128,6 @@ public class Assets {
             System.exit(1);
         }
         return null;
-    }
-
-    public static void drawFace(int x, int y, Graphics g, String mood) {
-        Image img;
-        switch (mood) {
-            case "smile":
-                img = smile;
-                break;
-            case "onclick":
-                img = onclick;
-                break;
-            case "lose":
-                img = lose;
-                break;
-            case "win":
-                img = win;
-                break;
-            default:
-                img = smile;
-                break;
-        }
-        g.drawImage(img, x, y, null);
     }
 
     public static void drawMinesCnt(int left, Graphics g) {
