@@ -1,11 +1,13 @@
 package minesweeper.game;
 
 import minesweeper.gfx.Assets;
+import minesweeper.gfx.BoardPanel;
 import minesweeper.gfx.FaceButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class Display {
@@ -16,11 +18,11 @@ public class Display {
     /**
      * The board canvas.
      */
-    private Canvas canvas;
+    private BoardPanel boardPanel;
     /**
      * The score, face and timer canvas.
      */
-    private Canvas scoreboard;
+    private Canvas bannerCanvas;
     private Game game;
     private FaceButton faceButton;
 
@@ -41,41 +43,18 @@ public class Display {
         frame.setVisible(true);
     }
 
-
-    public void drawBoardCanvas() {
-
-    }
-
-    public void setVisible(boolean b) {
-        frame.setVisible(b);
+    public void drawSmileFace() {
+        faceButton.setIcon(new ImageIcon(Assets.smile));
     }
 
     public void setFace(String face) {
-        Image img;
-        switch (face) {
-            case "smile":
-                img = Assets.smile;
-                break;
-            case "onclick":
-                img = Assets.onclick;
-                break;
-            case "lose":
-                img = Assets.lose;
-                break;
-            case "win":
-                img = Assets.win;
-                break;
-            default:
-                img = Assets.smile;
-                break;
-        }
-
+        Image img = Assets.stringToFaceImg(face);
         faceButton.setIcon(new ImageIcon(img));
     }
 
     private void createButton() {
         faceButton = new FaceButton(game);
-        frame.add(faceButton);
+        frame.add(faceButton, BorderLayout.NORTH);
     }
 
     /**
@@ -108,29 +87,26 @@ public class Display {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setMaximumSize(new Dimension(width, height));
-        canvas.setMinimumSize(new Dimension(width, height));
-        canvas.setFocusable(false);
-        frame.add(canvas, BorderLayout.SOUTH);
+        boardPanel = new BoardPanel(game.board);
+        boardPanel.setPreferredSize(new Dimension(width, height));
+        boardPanel.setFocusable(false);
+        frame.add(boardPanel, BorderLayout.SOUTH);
 
-        scoreboard = new Canvas();
-        scoreboard.setSize(new Dimension(width, Assets.faceHeight));
-        frame.add(scoreboard, BorderLayout.NORTH);
-
+        bannerCanvas = new Canvas();
+        bannerCanvas.setPreferredSize(new Dimension(width, Assets.faceHeight));
+        frame.add(bannerCanvas, BorderLayout.CENTER);
     }
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
 
-    public Canvas getScoreboard() {
-        return scoreboard;
+    public Canvas getBannerCanvas() {
+        return bannerCanvas;
     }
 
     public JFrame getFrame() {
         return frame;
     }
 
+    public BoardPanel getBoardPanel() {
+        return boardPanel;
+    }
 }

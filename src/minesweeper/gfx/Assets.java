@@ -63,9 +63,14 @@ public class Assets {
 
 
     public static void draw(int row, int col, CellState state, Graphics g) {
+        Image img = cellState2Image(state);
+        g.drawImage(img, width * col, width * row, null);
+    }
+
+    public static Image cellState2Image(CellState cellState) {
         BufferedImage img = covered;
 
-        switch (state) {
+        switch (cellState) {
             case COVERED:
                 img = covered;
                 break;
@@ -112,16 +117,14 @@ public class Assets {
                 img = bombMine;
                 break;
         }
-
-        g.drawImage(img, width * col, width * row, null);
+        return img;
     }
 
-
-
-    public static BufferedImage loadImage(String name) {
+    private static BufferedImage loadImage(String name) {
         try {
             ClassLoader classloader = Assets.class.getClassLoader();
             URL url = classloader.getResource(name);
+            assert url != null;
             return ImageIO.read(url);
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,11 +147,33 @@ public class Assets {
         }
     }
 
+    public static Image stringToFaceImg(String face) {
+        Image img;
+        switch (face) {
+            case "smile":
+                img = Assets.smile;
+                break;
+            case "onclick":
+                img = Assets.onclick;
+                break;
+            case "lose":
+                img = Assets.lose;
+                break;
+            case "win":
+                img = Assets.win;
+                break;
+            default:
+                img = Assets.smile;
+                break;
+        }
+        return img;
+    }
+
     /**
      * 12 -> "012"
      * Three digits at most
      *
-     * @param digits
+     * @param digits number
      * @return the array of {@link BufferedImage} of size three that represents the number
      */
     private static BufferedImage[] intToBfimgArray(int digits) {

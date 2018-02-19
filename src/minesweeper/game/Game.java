@@ -20,14 +20,13 @@ public class Game {
     public String title;
     public int N;
     protected Board board;
-    protected BufferStrategy bs; // subclass needs it for automation
-    ScheduledExecutorService service;
+    private ScheduledExecutorService service;
     private Display display;
     private int width, height;
     private boolean finished;
     private MouseManager mouseManager;
     private BufferStrategy sbbs;
-    private int NMines;
+    public int NMines;
     private long gameStartTime;
     private int NMinesLeftNoFound;
     private int timeElapsed;
@@ -42,35 +41,27 @@ public class Game {
         NMinesLeftNoFound = NMines;
         this.title = title;
         this.faceDrawingOriginX = N * Assets.width / 2 - Assets.faceWidth / 2;
-
         // set up assets first
         Assets.init();
-
         board = new Board(N, NMines);
         mouseManager = new MouseManager(this);
-
-        display = new Display(title, width, height, this); // reset reference past for set eventlisner
-        display.getCanvas().addMouseListener(mouseManager);
-        display.getCanvas().createBufferStrategy(2);
-        bs = display.getCanvas().getBufferStrategy();
-        display.getScoreboard().createBufferStrategy(2);
-        sbbs = display.getScoreboard().getBufferStrategy();
-
+        display = new Display(title, width, height, this); // reset reference past for set event listener
+        display.getBoardPanel().addMouseListener(mouseManager);
+        display.getBannerCanvas().createBufferStrategy(2);
+        sbbs = display.getBannerCanvas().getBufferStrategy();
     }
 
     public void reset() {
+        System.out.println("reset");
         finished = false;
-        // get a new board
-        board = new Board(N, NMines);
+        // reset board
+        board.reset();
+        // reset title
         display.getFrame().setTitle(title);
-        start(); // repaint the canvas
-    }
-
-
-    public boolean isCoveredOrFlagged(int x, int y) {
-        int row = y / Assets.width;
-        int col = x / Assets.width;
-        return board.getCellState(row, col) == CellState.COVERED || board.getCellState(row, col) == CellState.FLAGGED;
+        // reset timer and counter
+        start();
+        // paint new board to panel
+        refreshBoardPanel();
     }
 
 
@@ -92,23 +83,19 @@ public class Game {
 
         int row = y / Assets.width;
         int col = x / Assets.width;
-        Graphics g = bs.getDrawGraphics();
         Graphics gsb = sbbs.getDrawGraphics();
 
         if (isLeft)
-            board.uncoverCell(row, col, g);
+            board.uncoverCell(row, col);
         else {
-            int response = board.toggleFlag(row, col, g);
+            int response = board.toggleFlag(row, col);
             NMinesLeftNoFound += response;
+
             Assets.drawMinesCnt(NMinesLeftNoFound, gsb);
         }
-
-
-        g.dispose();
         gsb.dispose();
-        bs.show();
         sbbs.show();
-
+        refreshBoardPanel();
         checkGameStateAndEndIfPossible();
     }
 
@@ -146,12 +133,15 @@ public class Game {
             String msg = (result == GameState.WON) ? "Woo! Your time: " + timeElapsed + " seconds" : "Challenge again?";
 
             Object[] options = {"Yes, once more!", "Quit"};
-            int n = JOptionPane.showOptionDialog(display.getFrame(), msg, title,
+            return JOptionPane.showOptionDialog(display.getFrame(), msg, title,
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            return n;
         } else {
             return -1;
         }
+    }
+
+    private void refreshBoardPanel() {
+        display.getBoardPanel().repaint();
     }
 
     /**
@@ -167,20 +157,14 @@ public class Game {
 
         int row = y / Assets.width;
         int col = x / Assets.width;
-        Graphics g = bs.getDrawGraphics();
+        canAutoExpand = board.inferOnCell(row, col);
 
-        canAutoExpand = board.inferOnCell(row, col, g);
-
-        if (canAutoExpand) {
-            // game could have ended here, check and end the game if result is not ongoing
-            GameState result = board.getGameState();
-        } else {
+        if (!canAutoExpand) {
             // begin blink
-            board.changeTempToUNC0(row, col, g);
+            board.changeTempToUNC0(row, col);
         }
 
-        bs.show();
-        g.dispose();
+        refreshBoardPanel();
 
         /*check must be after bs.show to update the board
          * so user can see the final board upon lose*/
@@ -198,40 +182,22 @@ public class Game {
     public void restoreTempUNC0(int x, int y) {
         int row = y / Assets.width;
         int col = x / Assets.width;
-        Graphics g = bs.getDrawGraphics();
-        board.restoreTempUNC0(row, col, g);
-        bs.show();
-        g.dispose();
+        board.restoreTempUNC0(row, col);
+        refreshBoardPanel();
     }
 
     /**
      * Prepare the game. Paint the board by the first time. Set up time, counter, face.
      */
     public void start() {
+        display.drawSmileFace();
         gameStartTime = System.currentTimeMillis();
         NMinesLeftNoFound = NMines;
-        Graphics g = bs.getDrawGraphics();
-
-        // do not draw canvas here, draw it when it is constructed.
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                Assets.draw(i, j, CellState.COVERED, g);
-            }
-        }
-        g.dispose();
-        bs.show();
-
-        // set up button icon
-        setFace("smile");
-
-        // set up left counter
-        Graphics gUp = sbbs.getDrawGraphics();
-        Assets.drawMinesCnt(NMinesLeftNoFound, gUp);
-        gUp.dispose();
-        sbbs.show();
-
-        // set up Timer
         setupScheduleTimer();
+        Graphics g = sbbs.getDrawGraphics();
+        Assets.drawMinesCnt(NMines, g);
+        g.dispose();
+        sbbs.show();
     }
 
     /**

@@ -50,14 +50,13 @@ public class MouseManager implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        // change face
-//        game.drawFace("onclick");
         game.setFace("onclick");
 
         boolean isLeft = (e.getButton() == MouseEvent.BUTTON1);
         if (Math.abs(System.currentTimeMillis() - lastClickTime) < SIMUL_THRESHOLD && (isLeft != lastClickIsLeft)
                 && !onBlinkSecondRelease && !onBlinkFirstRelease) {
-            if (!game.onSimulPressed(e.getX(), e.getY())) { // callback game.onSimulPressed to handle the action
+            // detected an LR click
+            if (!game.onSimulPressed(e.getX(), e.getY())) {
                 onBlinkFirstRelease = true;
                 onBlinkSecondRelease = true;
                 // log X, Y for release use

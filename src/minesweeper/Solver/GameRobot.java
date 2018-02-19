@@ -136,15 +136,11 @@ public class GameRobot extends Game {
         if (isFinished())
             return false;
 
-        Graphics g = bs.getDrawGraphics();
+        boolean response = board.uncoverCell(row, col);
 
-        boolean response = board.uncoverCell(row, col, g);
-        bs.show();
         GameState result = board.getGameState();
         // when minesweeper.game ends
         SetFinishedFlag(result);
-
-        g.dispose();
         return response;
     }
 
@@ -152,11 +148,7 @@ public class GameRobot extends Game {
     public void flagCell(int row, int col) {
         if (isFinished())
             return;
-
-        Graphics g = bs.getDrawGraphics();
-        board.toggleFlag(row, col, g);
-        bs.show();
-        g.dispose();
+        board.toggleFlag(row, col);
     }
 
 

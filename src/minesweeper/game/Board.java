@@ -57,6 +57,11 @@ public class Board {
      * The number of mines of the adjacent cells.
      */
     private int[][] mineCnt;
+
+    public CellState[][] getStates() {
+        return states;
+    }
+
     /**
      * 2D array monitoring the current public state of each cell.
      */
@@ -83,6 +88,21 @@ public class Board {
         this.NCovered = N * N;
         this.NMines = NMines;
 
+        isMine = new boolean[N][N];
+        // mineCnt should be one unit larger than the actual board
+        mineCnt = new int[N + 2][N + 2];
+        states = new CellState[N][N];
+
+        putMines();
+
+        for (int i = 0; i < N; i++)
+            Arrays.fill(states[i], CellState.COVERED);
+
+        gameState = GameState.ONGOING;
+    }
+
+    public void reset() {
+        this.NCovered = N * N;
         isMine = new boolean[N][N];
         // mineCnt should be one unit larger than the actual board
         mineCnt = new int[N + 2][N + 2];
@@ -133,19 +153,16 @@ public class Board {
      * <p>
      * For the cells misflagged, not a mine, it is displayed as a cross-mine image (WRONG_FLAG).
      *
-     * @param g   {@link Graphics} used to draw
      * @param won win or loss
      * @see Graphics
      */
-    private void uncoverAll(Graphics g, boolean won) {
+    private void uncoverAll(boolean won) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (states[i][j] == CellState.COVERED && isMine[i][j]) {
                     states[i][j] = won ? CellState.FLAGGED : CellState.MINE;
-                    Assets.draw(i, j, states[i][j], g);
                 } else if (states[i][j] == CellState.FLAGGED && !isMine[i][j]) {
                     states[i][j] = CellState.WRONG_FLAG;
-                    Assets.draw(i, j, states[i][j], g);
                 }
             }
         }
@@ -155,9 +172,8 @@ public class Board {
      * Breadth first search, auto expand to reach non-UNC0 frontier.
      * @param row the row index of the cell
      * @param col the column index of the cell
-     * @param g Graphics object to draw with
      */
-    private void bfs(int row, int col, Graphics g) {
+    private void bfs(int row, int col) {
         Queue<Integer> q = new ArrayDeque<>();
         Set<Integer> visited = new HashSet<>();
 
@@ -170,15 +186,20 @@ public class Board {
         visited.add(row * N + col);
 
         while (!q.isEmpty()) {
+//            System.out.println(q.toString());
             int r = q.peek() / N;
             int c = q.poll() % N;
+//            System.out.println("state:"+states[r][c].toString());
 
             if (states[r][c] != CellState.COVERED)
                 continue;
 
             states[r][c] = uncoveredStates[mineCnt[r + 1][c + 1]];
-            Assets.draw(r, c, states[r][c], g); // reveal the concerning cell
             NCovered--; // decrease ACovered now
+            if (NMines == NCovered) {
+                gameState = GameState.WON;
+                uncoverAll(true); // uncover all in win mode
+            }
 
             // if the concerning cell is not UNC0, no need to consider queueing its neighbors
             if (states[r][c] != CellState.UNC0)
@@ -207,30 +228,30 @@ public class Board {
      * cell and auto expand the region if needed.<p>
      * Note that {@code Graphics g} is not manually disposed in this method, instead it should be disposed by the caller
      * , the constructor of graphics. The game may end by this method.
+     * <p>
+     * Change the state of cell only in bfs, do not change in this method.
      *
      * @param row row index of the cell
      * @param col column index of the cell
-     * @param g Graphics object to draw with
      * @return true if successfully uncover a mine, end the game, or uncover a region; false if hit a mine, lose the
      * game or click on an invalid cell
      */
-    public boolean uncoverCell(int row, int col, Graphics g) {
+    public boolean uncoverCell(int row, int col) {
         if (states[row][col] != CellState.COVERED) // click on non-covered tile, ignore
             return false;
         if (isMine[row][col]) { // hit a mine
             gameState = GameState.LOST;
-            uncoverAll(g, false);
             states[row][col] = CellState.FIRED_MINE;
-            Assets.draw(row, col, CellState.FIRED_MINE, g);
+            uncoverAll(false);
         } else {
             NCovered--;
-            // draw the uncovered tile, show the adjacent mine count
-            Assets.draw(row, col, uncoveredStates[mineCnt[row + 1][col + 1]], g);
+//            states[row][col] = uncoveredStates[getMineCnt(row, col)];
             if (NCovered == NMines) { // win
+                states[row][col] = uncoveredStates[mineCnt[row+1][col+1]];
                 gameState = GameState.WON;
-                uncoverAll(g, true); // uncover all in win mode
+                uncoverAll(true); // uncover all in win mode
             } else
-                bfs(row, col, g); // uncover, game will move on
+                bfs(row, col); // uncover, game will move on
         }
         return true;
     }
@@ -241,10 +262,9 @@ public class Board {
      *
      * @param row row index of the cell
      * @param col column index of the cell
-     * @param g   Graphics obejct to draw with
      * @return true if can infer and expand; false if click on invalid cells or lack conditions to auto uncover
      */
-    public boolean inferOnCell(int row, int col, Graphics g) {
+    public boolean inferOnCell(int row, int col) {
         // check (row, col) is uncovered and non zero
         CellState state = states[row][col];
         if (state == CellState.UNC0 || state == CellState.COVERED) { // nothing to infers
@@ -273,7 +293,7 @@ public class Board {
                 int _c = col + dj[i];
                 if (_r >= 0 && _r < N && _c >= 0 && _c < N) { // prevent out of bound
                     if (getCellState(_r, _c) == CellState.COVERED) {
-                        uncoverCell(_r, _c, g);
+                        uncoverCell(_r, _c);
                     }
                 }
             }
@@ -289,9 +309,8 @@ public class Board {
      * Use di0 and dj0, need to blink the center cell as well.
      * @param row
      * @param col
-     * @param g
      */
-    public void restoreTempUNC0(int row, int col, Graphics g) {
+    public void restoreTempUNC0(int row, int col) {
         for (int i = 0; i < di0.length; i++) {
             int _r = row + di0[i];
             int _c = col + dj0[i];
@@ -299,7 +318,6 @@ public class Board {
                 if (getCellState(_r, _c) == CellState.TEMP_UNC0) {
                     // set TEMP_UNC0 back to COVERED
                     states[_r][_c] = CellState.COVERED;
-                    Assets.draw(_r, _c, CellState.COVERED, g);
                 }
             }
         }
@@ -309,9 +327,8 @@ public class Board {
      * Temporarily change the appearance surrounding cells of (row, col) to UNC0;
      * @param row the center cell row index
      * @param col the center cell column index
-     * @param g Graphics object to draw with
      */
-    public void changeTempToUNC0(int row, int col, Graphics g) {
+    public void changeTempToUNC0(int row, int col) {
         for (int i = 0; i < di0.length; i++) {
             int _r = row + di0[i];
             int _c = col + dj0[i];
@@ -319,7 +336,6 @@ public class Board {
                 if (getCellState(_r, _c) == CellState.COVERED) {
                     // will change back later, does not affect the game
                     states[_r][_c] = CellState.TEMP_UNC0;
-                    Assets.draw(_r, _c, CellState.TEMP_UNC0, g);
                 }
             }
         }
@@ -349,10 +365,9 @@ public class Board {
      * Flag or un-flag a cell.
      * @param row row index
      * @param col column index
-     * @param g Graphics object to draw with
      * @return the change of mines remaining to be discovered. -1 if flag a cell; 1 if unflag a cell; 0 if not viable.
      */
-    public int toggleFlag(int row, int col, Graphics g) {
+    public int toggleFlag(int row, int col) {
         int delta = 0;
         if (states[row][col] == CellState.COVERED) {
             // flag one cell
@@ -362,9 +377,6 @@ public class Board {
             states[row][col] = CellState.COVERED;
             delta = 1;
         }
-
-        Assets.draw(row, col, states[row][col], g);
-        g.dispose();
         return delta;
     }
 
