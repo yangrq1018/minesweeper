@@ -140,7 +140,7 @@ public class Game {
         }
     }
 
-    private void refreshBoardPanel() {
+    protected void refreshBoardPanel() {
         display.getBoardPanel().repaint();
     }
 

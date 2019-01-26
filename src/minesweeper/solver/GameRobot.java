@@ -1,4 +1,4 @@
-package minesweeper.Solver;
+package minesweeper.solver;
 
 import minesweeper.game.Game;
 import minesweeper.game.states.CellState;
@@ -137,7 +137,7 @@ public class GameRobot extends Game {
             return false;
 
         boolean response = board.uncoverCell(row, col);
-
+        refreshBoardPanel();
         GameState result = board.getGameState();
         // when minesweeper.game ends
         SetFinishedFlag(result);
