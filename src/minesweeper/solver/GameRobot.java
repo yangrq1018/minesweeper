@@ -111,6 +111,8 @@ public class GameRobot extends Game {
 
     public void autoPlay() {
         boolean start = true;
+        int pre_solve = board.getNCovered(); 
+        int post_solve = 0; 
         while (!isFinished()) {
             if (start) {
                 while (N*N - board.getNCovered() <= ROBOT_TAKEOVER_THRESHOLD) {
@@ -128,6 +130,11 @@ public class GameRobot extends Game {
             // try to uncover cells certain not mine according to the flagged cells and mineCnt
             uncoverPossible();
             System.out.println("Uncovered: "+board.getNCovered()+"/"+N*N);
+            post_solve = board.getNCovered();
+            if (pre_solve == post_solve){
+                System.out.println("We are stuck!\n Let's have a try...");
+            }
+            pre_solve = post_solve;
             timeOut();
         }
     }
