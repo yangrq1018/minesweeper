@@ -2,4 +2,5 @@
 A Java minesweeper game running with a solver
 
 
-Compared to `yangrq`'s version of minesweeper, this version includes a new function of random try a cell when the autoplay process is stuck.This strategy is alike the normal behavior of human players.
+### Update Jan 26th:
+This version includes a new functionality of random try behavior upon the case that the solver is stuck. <del>This strategy is alike the normal behavior of human players.</del> Usually human players don't random click globally, instead they random pick in the area where the ambiguity arises.
