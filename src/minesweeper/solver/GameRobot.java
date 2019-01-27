@@ -162,7 +162,7 @@ public class GameRobot extends Game {
             int row = randomKey / N;
             int col = randomKey % N;
             CellState s = board.getCellState(row, col);
-            if(CellState.isCovered(s) == true){
+            if(CellState.isCovered(s)){
                 unCoverCell(row, col);
                 // call this function untill a covered cell is found and uncovered
                 done ++;
