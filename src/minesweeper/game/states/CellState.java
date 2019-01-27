@@ -87,6 +87,10 @@ public enum CellState {
         }
         return true;
     }
+    
+    public static boolean isCovered(CellState state) {
+        return (state == Covered);
+    }
 
     /**
      * Return the count of mines around of the eight adjacent cells of this cell. It is needed to convert an enumerated
