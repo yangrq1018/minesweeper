@@ -89,10 +89,7 @@ public enum CellState {
     }
     
     public static boolean isCovered(CellState state) {
-        if (state == COVERED) {
-            return true;
-        }
-        return false;
+        return (state == Covered);
     }
 
     /**
