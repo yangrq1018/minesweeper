@@ -113,6 +113,7 @@ public class GameRobot extends Game {
         boolean start = true;
         int pre_solve = board.getNCovered(); 
         int post_solve = 0; 
+        // try to record whether autoPlay is stuck, if yes, a random try will be performed
         while (!isFinished()) {
             if (start) {
                 while (N*N - board.getNCovered() <= ROBOT_TAKEOVER_THRESHOLD) {
@@ -133,6 +134,7 @@ public class GameRobot extends Game {
             post_solve = board.getNCovered();
             if (pre_solve == post_solve){
                 System.out.println("We are stuck!\n Let's have a try...");
+                random_try();
             }
             pre_solve = post_solve;
             timeOut();
@@ -151,6 +153,25 @@ public class GameRobot extends Game {
         return response;
     }
 
+    public boolean random_try() {
+        // this function performs random try on a covered cell 
+        // this strategy works well in (60,400)
+        int done = 0;
+        while(done == 0){
+            int randomKey = random.nextInt(N * N);
+            int row = randomKey / N;
+            int col = randomKey % N;
+            CellState s = board.getCellState(row, col);
+            if(CellState.isUncovered(s) == false){
+                unCoverCell(row, col);
+                // call this function untill a covered cell is found and uncovered
+                done ++;
+            }
+        }
+        
+
+        return true;
+    }
 
     public void flagCell(int row, int col) {
         if (isFinished())
